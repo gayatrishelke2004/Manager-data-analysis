@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Employee {
+    private:
+        string name; 
+        int age;
+        double salary; 
+    public:
+         Employee() {
+           name = "";
+           age = 0;
+           salary = 0.0;
+         }
+        Employee(string n, int a, double s) {
+            name = n;
+            age = a;
+            salary = s;
+        }
+        string getName() {
+            return name;
+        }
+        int getAge() {
+            return age;
+        }
+        double getSalary() {
+            return salary;
+        }
+};
+void enterDetails(Employee emp[]) {
+    string name;
+    int age;
+    double salary;
+    for (int i = 0; i < 5; i++) {
+        cout << "Enter the details of employee " << i + 1 << endl;
+        cout << "Name: ";
+        cin >> name;
+        cout << "Age: ";
+        cin >> age;
+        // Validate the age input
+        if (age < 18 || age > 65) {
+            throw "Invalid age";
+        }
+        cout << "Salary: ";
+        cin >> salary;
+              if (salary < 0) {
+            throw "Invalid salary";
+        }
+        emp[i] = Employee(name, age, salary);
+    }
+}
+void displayDetails(Employee emp[]) {
+    cout << "The details of 5 employees are:" << endl;
+    cout << "Name\tAge\tSalary" << endl;
+    for (int i = 0; i < 5; i++) {
+   cout << emp[i].getName() << "\t" << emp[i].getAge() << "\t" << emp[i].getSalary() << endl;
+ }
+}
+int main() {
+    Employee emp[5];
+    try {
+        enterDetails(emp);
+        displayDetails(emp);
+    }
+    catch (const char* msg) {
+        cerr << "Exception: " << msg << endl;
+    }
+    return 0;
+}
