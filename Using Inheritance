@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+class Employee {
+  protected:
+    string name;
+    int age;
+    double salary;
+  public:
+      Employee() {
+      name = "";
+      age = 0;
+      salary = 0.0;
+    }
+      Employee(string n, int a, double s) {
+      name = n;
+      age = a;
+      salary = s;
+    }
+    void getDetails() {
+      cout << "Enter name: ";
+      cin >> name;
+      cout << "Enter age: ";
+      cin >> age;
+      cout << "Enter salary: ";
+      cin >> salary;
+    }
+    void displayDetails() {
+      cout << "Name: " << name << endl;
+      cout << "Age: " << age << endl;
+      cout << "Salary: " << salary << endl;
+    }
+};
+class Manager : public Employee {
+  private:
+    string department; 
+  public:
+    Manager() : Employee() {
+      department = "";
+    }
+    Manager(string n, int a, double s, string d) : Employee(n, a, s) {
+      department = d;
+    }
+    void getDetails() {
+      Employee::getDetails();
+      cout << "Enter department: ";
+      cin >> department;
+    }
+    void displayDetails() {
+      Employee::displayDetails();
+      cout << "Department: " << department << endl;
+    }
+};
+int main() {
+   Manager m[5];
+  for (int i = 0; i < 5; i++) {
+    cout << "Enter details of manager " << i + 1 << endl;
+    m[i].getDetails();
+  }
+  for (int i = 0; i < 5; i++) {
+    cout << "Details of manager " << i + 1 << endl;
+    m[i].displayDetails();
+  }
+  return 0;
+}
