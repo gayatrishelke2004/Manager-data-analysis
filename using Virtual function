@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+class Employee {
+  protected:
+    string name; 
+    int age; 
+    double salary; 
+  public:
+    Employee() {
+      name = "";
+      age = 0;
+      salary = 0.0;
+    }
+    Employee(string n, int a, double s) {
+      name = n;
+      age = a;
+      salary = s;
+    }
+    virtual void getDetails() {
+      cout << "Enter name: ";
+      cin >> name;
+      cout << "Enter age: ";
+      cin >> age;
+      cout << "Enter salary: ";
+      cin >> salary;
+    }
+    virtual void displayDetails() {
+      cout << "Name: " << name << endl;
+      cout << "Age: " << age << endl;
+      cout << "Salary: " << salary << endl;
+    }
+};
+class Manager : public Employee {
+  private:
+    string department;
+  public:
+     Manager() : Employee() {
+      department = "";
+    }
+    Manager(string n, int a, double s, string d) : Employee(n, a, s) {
+      department = d;
+    }
+    void getDetails() override {
+      Employee::getDetails(); 
+      cout << "Enter department: ";
+      cin >> department;
+    }
+    void displayDetails() override {
+      Employee::displayDetails(); 
+      cout << "Department: " << department << endl;
+    }
+};
+int main() {
+  Employee* e[5];
+    for (int i = 0; i < 5; i++) {
+    cout << "Enter details of employee " << i + 1 << endl;
+    cout << "Enter 1 for manager, 0 for regular employee: ";
+    int choice;
+    cin >> choice;
+    if (choice == 1) {
+           e[i] = new Manager();
+    }
+    else {
+        e[i] = new Employee();
+    }
+    e[i]->getDetails();
+  }
+  for (int i = 0; i < 5; i++) {
+    cout << "Details of employee " << i + 1 << endl;
+       e[i]->displayDetails();
+    delete e[i];
+  }
+  return 0;
+}
